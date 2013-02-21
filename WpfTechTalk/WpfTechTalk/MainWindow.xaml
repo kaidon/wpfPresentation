@@ -1,0 +1,77 @@
+﻿<Window x:Class="WpfTechTalk.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="600" Width="600"
+        Background="PaleGreen">
+    <Window.Resources>
+        <DropShadowEffect x:Key="dropShadow" BlurRadius="15" Direction="315" />        
+
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Margin" Value="4"></Setter>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Effect" Value="{StaticResource dropShadow}"/>
+        </Style>
+        
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Margin" Value="4"/>
+        </Style>
+
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="FontSize" Value="18"></Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.Resources>
+            <Style TargetType="{x:Type Grid}">                
+                <Setter Property="Margin" Value="4"></Setter>
+            </Style>
+        </Grid.Resources>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.4*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="0.4*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Stack A -->
+        <Grid HorizontalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Foreground="Black" Text="Stack A"/>
+        </Grid>
+
+        <!-- Stack B -->
+        <Grid Grid.Column="2" HorizontalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Foreground="Black" Text="Stack B"/>
+        </Grid>
+        
+        <!-- Buttons -->
+        <StackPanel
+            Grid.Column="1"
+            VerticalAlignment="Bottom"             
+            Margin="10,5,10,15">
+            
+            <Button ToolTip="Push a block onto stack A">
+                Push On A
+            </Button>
+            
+            <TextBlock Text="Block Name"></TextBlock>
+            <TextBox></TextBox>
+            
+            <Button ToolTip="Pop a block from Stack A onto B">
+                Pop On B
+            </Button>
+        </StackPanel>
+
+    </Grid>
+</Window>
