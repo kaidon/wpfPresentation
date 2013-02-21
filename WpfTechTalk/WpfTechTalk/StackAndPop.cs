@@ -5,24 +5,24 @@ namespace WpfTechTalk
 {
     public class StackAndPop : ViewModelBase
     {
-        private readonly RelayCommand<string> popA;
-        private readonly RelayCommand<string> pushA;
+        private readonly RelayCommand popA;
+        private readonly RelayCommand pushA;
         private readonly ObservableCollection<string> stackA = new ObservableCollection<string>();
         private readonly ObservableCollection<string> stackB = new ObservableCollection<string>();
         private string blockName = "foo";
 
         public StackAndPop()
         {
-            pushA = new RelayCommand<string>(
-                s => stackA.Add(s),
-                s => !string.IsNullOrWhiteSpace(s));
-            popA = new RelayCommand<string>(
-                s =>
+            pushA = new RelayCommand(
+                ()=> stackA.Add(BlockName),
+                () => !string.IsNullOrWhiteSpace(BlockName));
+            popA = new RelayCommand(
+                () =>
                     {
                         stackB.Add(stackA.Last());
                         stackA.RemoveAt(stackA.Count - 1);
                     },
-                s => stackA.Count > 0);
+                () => stackA.Count > 0);
         }
 
         public string BlockName
@@ -45,12 +45,12 @@ namespace WpfTechTalk
             get { return stackB; }
         }
 
-        public RelayCommand<string> PopA
+        public RelayCommand PopA
         {
             get { return popA; }
         }
 
-        public RelayCommand<string> PushA
+        public RelayCommand PushA
         {
             get { return pushA; }
         }

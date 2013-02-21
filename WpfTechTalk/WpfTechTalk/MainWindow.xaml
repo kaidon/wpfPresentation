@@ -107,7 +107,7 @@
 
             <Button ToolTip="Push a block onto stack A"
                     Command="{Binding PushA}" 
-                    CommandParameter="{Binding BlockName}" IsDefault="True">
+                    IsDefault="True">
                 Push On A
             </Button>
 

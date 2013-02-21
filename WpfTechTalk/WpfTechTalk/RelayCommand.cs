@@ -4,18 +4,18 @@ using System.Windows.Input;
 
 namespace WpfTechTalk
 {
-    public class RelayCommand<T> : ICommand
+    public class RelayCommand : ICommand
     {
         #region Fields
 
-        private readonly Predicate<T> _canExecute;
-        private readonly Action<T> _execute;
+        private readonly Func<bool> _canExecute;
+        private readonly Action _execute;
 
         #endregion // Fields
 
         #region Constructors
 
-        public RelayCommand(Action<T> execute)
+        public RelayCommand(Action execute)
             : this(execute, null)
         {
         }
@@ -25,7 +25,7 @@ namespace WpfTechTalk
         /// </summary>
         /// <param name="execute">The execution logic.</param>
         /// <param name="canExecute">The execution status logic.</param>
-        public RelayCommand(Action<T> execute, Predicate<T> canExecute)
+        public RelayCommand(Action execute, Func<bool> canExecute)
         {
             if (execute == null)
                 throw new ArgumentNullException("execute");
@@ -41,7 +41,7 @@ namespace WpfTechTalk
         [DebuggerStepThrough]
         public bool CanExecute(object parameter)
         {
-            return _canExecute == null ? true : _canExecute((T) parameter);
+            return _canExecute == null ? true : _canExecute();
         }
 
         public event EventHandler CanExecuteChanged
@@ -52,7 +52,7 @@ namespace WpfTechTalk
 
         public void Execute(object parameter)
         {
-            _execute((T) parameter);
+            _execute();
         }
 
         #endregion // ICommand Members

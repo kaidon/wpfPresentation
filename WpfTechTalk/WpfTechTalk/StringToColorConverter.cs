@@ -23,14 +23,20 @@ namespace WpfTechTalk
             {
                 case 1:
                     return new SolidColorBrush(Colors.Red);
-                    break;
-                case 2: return new SolidColorBrush(Colors.Green);
-                    break;
-                case 3: return new SolidColorBrush(Colors.Orange);
-                    break;
-                case 4: return new SolidColorBrush(Colors.BurlyWood);
-                    break;
-                default: return new SolidColorBrush(Colors.Chartreuse);
+                case 2:
+                    return new SolidColorBrush(Colors.Green);
+                case 3:
+                    return new SolidColorBrush(Colors.Orange);
+                case 4:
+                    return new SolidColorBrush(Colors.BurlyWood);
+                case 5:
+                    return new SolidColorBrush(Colors.DarkGreen);
+                case 6:
+                    return new SolidColorBrush(Colors.DarkOliveGreen);
+                case 7:
+                    return new SolidColorBrush(Colors.Linen);
+                default:
+                    return new SolidColorBrush(Colors.Chartreuse);
             }
         }
 
