@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfTechTalk", "WpfTechTalk\WpfTechTalk.csproj", "{C523F35A-08D8-498B-B6E9-649E97A35BFC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfTechTalkTest", "WpfTechTalkTest\WpfTechTalkTest.csproj", "{0D91FAB1-2D3F-49B2-83DF-EFCD3E594769}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{C523F35A-08D8-498B-B6E9-649E97A35BFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C523F35A-08D8-498B-B6E9-649E97A35BFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C523F35A-08D8-498B-B6E9-649E97A35BFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D91FAB1-2D3F-49B2-83DF-EFCD3E594769}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D91FAB1-2D3F-49B2-83DF-EFCD3E594769}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D91FAB1-2D3F-49B2-83DF-EFCD3E594769}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D91FAB1-2D3F-49B2-83DF-EFCD3E594769}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
