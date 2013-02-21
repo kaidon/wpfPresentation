@@ -26,8 +26,4 @@ namespace WpfTechTalk
             DataContext = new StackAndPop();
         }
     }
-
-    public class StackAndPop
-    {
-    }
 }

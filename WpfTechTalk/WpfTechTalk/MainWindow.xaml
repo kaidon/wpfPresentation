@@ -1,10 +1,18 @@
 ﻿<Window x:Class="WpfTechTalk.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="600" Width="600"
-        Background="PaleGreen">
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:wpfTechTalk="clr-namespace:WpfTechTalk"
+        Title="Tech Talk Demo" Height="600" Width="600"
+        Background="PaleGreen"
+        mc:Ignorable="d" 
+        d:DataContext="{d:DesignInstance wpfTechTalk:StackAndPop}">
+
+    <!-- Common styles are stored in Resources -->
     <Window.Resources>
-        <DropShadowEffect x:Key="dropShadow" BlurRadius="15" Direction="315" />        
+        <wpfTechTalk:StringToColorConverter x:Key="StringToColorConverter"/>
+        <DropShadowEffect x:Key="dropShadow" BlurRadius="15" Direction="315" />
 
         <Style TargetType="{x:Type TextBlock}">
             <Setter Property="FontSize" Value="18"/>
@@ -12,7 +20,7 @@
             <Setter Property="Foreground" Value="Black"/>
             <Setter Property="Effect" Value="{StaticResource dropShadow}"/>
         </Style>
-        
+
         <Style TargetType="{x:Type TextBox}">
             <Setter Property="Margin" Value="4"/>
         </Style>
@@ -24,11 +32,11 @@
 
     <Grid>
         <Grid.Resources>
-            <Style TargetType="{x:Type Grid}">                
+            <Style TargetType="{x:Type Grid}">
                 <Setter Property="Margin" Value="4"></Setter>
             </Style>
         </Grid.Resources>
-        
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.4*"/>
             <ColumnDefinition Width="Auto"/>
@@ -36,39 +44,78 @@
         </Grid.ColumnDefinitions>
 
         <!-- Stack A -->
-        <Grid HorizontalAlignment="Center">
+        <Grid HorizontalAlignment="Stretch">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Foreground="Black" Text="Stack A"/>
+            <TextBlock Foreground="Black" Text="Stack A"
+                       HorizontalAlignment="Center"/>
+
+            <ListBox Grid.Row="1"
+                     ItemsSource="{Binding StackA}"
+                     HorizontalAlignment="Stretch">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel
+                            Background="{Binding Converter={StaticResource StringToColorConverter}}"
+                            HorizontalAlignment="Stretch">
+                            <TextBlock Text="{Binding}" FontSize="15" HorizontalAlignment="Stretch"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </Grid>
 
         <!-- Stack B -->
-        <Grid Grid.Column="2" HorizontalAlignment="Center">
+        <Grid Grid.Column="2" HorizontalAlignment="Stretch">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Foreground="Black" Text="Stack B"/>
+            <TextBlock Foreground="Black" Text="Stack B"
+                       HorizontalAlignment="Center"/>
+
+            <ListBox Grid.Row="1"
+                     x:Name="stackBList"
+                     ItemsSource="{Binding StackB}"
+                     HorizontalAlignment="Stretch">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid
+                            HorizontalAlignment="Stretch">                            
+                            <Rectangle
+                                Fill="{Binding Converter={StaticResource StringToColorConverter}}" 
+                                RadiusX="2" RadiusY="2"
+                                HorizontalAlignment="Stretch"
+                                Width="{Binding ElementName=stackBList, Path=ActualWidth}"
+                                Height="25" />
+                            <TextBlock Text="{Binding}" FontSize="15" HorizontalAlignment="Stretch"/>
+                        </Grid>
+                        </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </Grid>
-        
+
         <!-- Buttons -->
         <StackPanel
             Grid.Column="1"
             VerticalAlignment="Bottom"             
             Margin="10,5,10,15">
-            
-            <Button ToolTip="Push a block onto stack A">
+
+            <Button ToolTip="Push a block onto stack A"
+                    Command="{Binding PushA}" 
+                    CommandParameter="{Binding BlockName}" IsDefault="True">
                 Push On A
             </Button>
-            
+
             <TextBlock Text="Block Name"></TextBlock>
-            <TextBox></TextBox>
-            
-            <Button ToolTip="Pop a block from Stack A onto B">
+            <TextBox Text="{Binding BlockName, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Button ToolTip="Pop a block from Stack A onto B"
+                    Command="{Binding PopA}">
                 Pop On B
             </Button>
         </StackPanel>
