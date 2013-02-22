@@ -28,6 +28,44 @@
         <Style TargetType="{x:Type Button}">
             <Setter Property="FontSize" Value="18"></Setter>
         </Style>
+
+        <!-- A button that grows when you hover over it -->
+        <Style x:Key="GrowButton" TargetType="{x:Type Button}">
+            <Setter Property="LayoutTransform">
+                <Setter.Value>
+                    <ScaleTransform/>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <!-- On mouse enter, scale the list item to a larger size! -->
+                <EventTrigger RoutedEvent="Button.MouseEnter">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="LayoutTransform.ScaleX"
+                                                             To="1.5" Duration="0:0:0.25"/>
+                                <DoubleAnimation Storyboard.TargetProperty="LayoutTransform.ScaleY"
+                                                             To="1.5" Duration="0:0:0.25"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+
+                <!-- On mouse leave, scale the list item back to normal! -->
+                <EventTrigger RoutedEvent="Button.MouseLeave">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="LayoutTransform.ScaleX"
+                                                             To="1" Duration="0:0:0.25"/>
+                                <DoubleAnimation Storyboard.TargetProperty="LayoutTransform.ScaleY"
+                                                             To="1" Duration="0:0:0.25"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
 
     <Grid>
@@ -79,22 +117,16 @@
                        HorizontalAlignment="Center"/>
 
             <ListBox Grid.Row="1"
-                     x:Name="stackBList"
+                     x:Name="StackBList"
                      ItemsSource="{Binding StackB}"
                      HorizontalAlignment="Stretch">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Grid
-                            HorizontalAlignment="Stretch">                            
-                            <Rectangle
-                                Fill="{Binding Converter={StaticResource StringToColorConverter}}" 
-                                RadiusX="2" RadiusY="2"
-                                HorizontalAlignment="Stretch"
-                                Width="{Binding ElementName=stackBList, Path=ActualWidth}"
-                                Height="25" />
-                            <TextBlock Text="{Binding}" FontSize="15" HorizontalAlignment="Stretch"/>
-                        </Grid>
-                        </DataTemplate>
+                        <Button Style="{StaticResource GrowButton}"
+                            MinWidth="25">
+                            <TextBlock Text="{Binding}" FontSize="15"/>
+                        </Button>
+                    </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
         </Grid>
