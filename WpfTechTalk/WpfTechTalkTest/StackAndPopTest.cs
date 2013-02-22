@@ -18,19 +18,20 @@ namespace WpfTechTalkTest
         [TestMethod]
         public void Push_CannotExecute_WhenBlockNameEmpty()
         {
+            model.BlockName = null;
             Assert.IsFalse(model.PushA.CanExecute(null));
-            Assert.IsFalse(model.PushA.CanExecute(""));
-            Assert.IsFalse(model.PushA.CanExecute("    "));
+            model.BlockName = "";
+            Assert.IsFalse(model.PushA.CanExecute(null));
+            model.BlockName = "   ";
+            Assert.IsFalse(model.PushA.CanExecute(null));
         }
 
         [TestMethod]
         public void Push_AddsNametoStackA()
         {
-            model.PushA.Execute("aaa");
-            model.PushA.Execute("bbb");
-            model.PushA.Execute("ccc");
+            Push("aaa", "bbb", "ccc");
             CollectionAssert.AreEquivalent(new[] {"aaa", "bbb", "ccc"}, model.StackA);
-        }
+        }      
 
         [TestMethod]
         public void Pop_CannotExecute_WhenStackA_Empty()
@@ -42,12 +43,19 @@ namespace WpfTechTalkTest
         [TestMethod]
         public void Pop_PutsLastItem_OnStackB()
         {
-            model.PushA.Execute("aaa");
-            model.PushA.Execute("bbb");
-            model.PushA.Execute("ccc");
+            Push("aaa","bbb","ccc");            
             PopAndCheckStacks(new[] {"aaa", "bbb"}, new[] {"ccc"});
             PopAndCheckStacks(new[] {"aaa"}, new[] {"ccc", "bbb"});
             PopAndCheckStacks(new string[0], new[] {"ccc", "bbb", "aaa"});
+        }
+
+        private void Push(params string[] blockNames)
+        {
+            foreach (var b in blockNames)
+            {
+                model.BlockName = b;
+                model.PushA.Execute(null);
+            }
         }
 
         private void PopAndCheckStacks(string[] expectStackA, string[] expectStackB)
